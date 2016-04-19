@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <constant name="struts.devMode" value="true" /> -->
+     <!-- 配置全局拦截器栈 -->
+	<package name="defaults" namespace="/" extends="struts-default">
+	     <interceptors>
+	      <interceptor name="myInterceptor" class="com.justtide.tms.filter.UserPermissionInterceptor"/>
+           <interceptor-stack name="common">
+				<interceptor-ref name="defaultStack"/>	
+  				<interceptor-ref name="myInterceptor"/>
+		   </interceptor-stack>			
+		</interceptors>	
+		<default-interceptor-ref name="common" />
+		<global-results>			
+		   <result name="nologin">/pages/common/nologinMsg.jsp</result>	
+		   <result name="repeatlogin">/pages/common/repeatloginMsg.jsp</result>	
+		   <result name="login">/pages/login/login.jsp</result>	
+		   <result name="error">pages/common/error.jsp</result>
+		   <result name="msg">/pages/common/msg.jsp</result>
+		   <result name="message">/pages/common/message.jsp</result>
+		   <result name="message2">/pages/common/message2.jsp</result>
+		   <result name="index">/pages/common/index.jsp</result>
+		   <result name="report">/pages/common/report.jsp</result>
+	   </global-results> 
+	 </package>
+	 
+	 
+	 
+		<package name="User" extends="defaults" namespace="/">
+			<action name="userAction_*" class="com.lin.myzone.action.UserAction" method="{1}">
+				<result name="success">/pages/alertMessage/successRegister.jsp</result>
+				<result name="list">/pages/MBmessage/message_list.jsp</result>
+				<result name="register">/pages/userBase/register.jsp</result>
+			</action>
+		
+		</package>
+		
+		
+		<package name="MBmessage" extends="defaults" namespace="/">
+			<action name="messageAction_*" class="com.lin.myzone.action.MessageBoardAction" method="{1}">
+				<result name="success" >/pages/MBmessage/message_list.jsp</result>
+			</action>
+<!-- 			<action name="messageList" class="com.lin.myzone.action.MessageBoardAction" method="ShowMessageList">
+				<result name="list">/pages/MBmessage/message_list.jsp</result>
+			</action> -->
+		</package>
+		
+		
+				<package name="Friend" extends="defaults" namespace="/">
+			<action name="friendAction_*" class="com.lin.myzone.action.FriendsAction" method="{1}">
+				<result name="friendslist">/pages/friendsMaintain/friendsList.jsp</result>
+				<result name="addjsp">/pages/friendsMaintain/addFriend.jsp</result>
+				<result name="search">/pages/friendsMaintain/addFriend.jsp</result>
+				<result name="applylist">/pages/friendsMaintain/applyFriendList.jsp</result>
+				<result name="appliedlist">/pages/friendsMaintain/appliedFriendList.jsp</result>
+				<result name="delete">/pages/friendsMaintain/appliedFriendList.jsp</result>
+			</action>
+		
+		</package>
+</struts>
